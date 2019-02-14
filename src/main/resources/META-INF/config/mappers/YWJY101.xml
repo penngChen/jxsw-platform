@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.YWJY101Dao">
+
+    <insert id="insertYWJY101" parameterType="java.util.List" useGeneratedKeys="false">
+        INSERT INTO YWJY101 (
+        XH,
+        YWXH,
+        CSSJC,
+        CLZT,
+        SBYY_DM,
+        SBYY,
+        SJTB_SJ,
+        LRR_DM,
+        LRRQ,
+        XGR_DM,
+        XGRQ,
+        DATABH
+        )
+        select xx.* from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT
+            #{item.XH,jdbcType=VARCHAR},
+            #{item.YWXH,jdbcType=VARCHAR},
+            #{item.CSSJC,jdbcType=VARCHAR},
+            #{item.CLZT,jdbcType=VARCHAR},
+            #{item.SBYY_DM,jdbcType=VARCHAR},
+            #{item.SBYY,jdbcType=VARCHAR},
+            #{item.SJTB_SJ,jdbcType=VARCHAR},
+            #{item.LRR_DM,jdbcType=VARCHAR},
+            #{item.LRRQ,jdbcType=VARCHAR},
+            #{item.XGR_DM,jdbcType=VARCHAR},
+            #{item.XGRQ,jdbcType=VARCHAR},
+            #{item.DATABH,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )xx
+    </insert>
+
+    <select id="findYWJY101" resultType="com.tzsw.model.YWJY101" parameterType="java.lang.String">
+        SELECT a.* from YWJY101 a,PACKAGEHEAD b WHERE a.STATUS='0' and a.DATABH=b.SJBBH AND b.JGBS=#{JGBS}
+    </select>
+
+    <update id="updateYWJY101" flushCache="true" parameterType="java.lang.String">
+        UPDATE YWJY101 SET STATUS=#{status}
+    </update>
+
+    <delete id="deleteYWJY101ByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM YWJY101 WHERE DATABH=#{DATABH}
+    </delete>
+
+</mapper>

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.HZDZ101Dao">
+
+    <insert id="insertHZDZ101" parameterType="java.util.List" flushCache="true" useGeneratedKeys="false">
+        INSERT INTO HZDZ101 (
+        SJBBH,
+        SJBLX,
+        RECORD_INDEX,
+        SJX,
+        SJXNR,
+        RKHJYSBYY,
+        DATABH
+        )
+        select xx.* from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT
+            #{item.SJBBH,jdbcType=VARCHAR},
+            #{item.SJBLX,jdbcType=VARCHAR},
+            #{item.RECORD_INDEX,jdbcType=VARCHAR},
+            #{item.SJX,jdbcType=VARCHAR},
+            #{item.SJXNR,jdbcType=VARCHAR},
+            #{item.RKHJYSBYY,jdbcType=VARCHAR},
+            #{item.DATABH,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )xx
+    </insert>
+
+    <select id="findHZDZ101" resultType="com.tzsw.model.HZDZ101" parameterType="java.lang.String">
+          SELECT a.* FROM HZDZ101 a,PACKAGEHEAD b WHERE a.STATUS='0' and a.DATABH=b.SJBBH AND b.JGBS=#{JGBS}
+    </select>
+
+    <update id="updateHZDZ101" flushCache="true" parameterType="java.lang.String">
+        UPDATE HZDZ101 SET STATUS=#{status}
+    </update>
+
+    <delete id="deleteHZDZ101ByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM HZDZ101 WHERE DATABH=#{DATABH}
+    </delete>
+</mapper>

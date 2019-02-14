@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.SWDJ102Dao">
+
+    <insert id="insertSWDJ102" parameterType="java.util.List" flushCache="true">
+        INSERT INTO SWDJ102 (
+        XH,
+        AAZ400,
+        SBUUID,
+        AAC001,
+        AAC002,
+        AAC003,
+        AAC004,
+        AAC006,
+        AAC147,
+        AAC058,
+        AAE036,
+        AAA321,
+        AAA322,
+        AAE418,
+        DATABH
+        )
+        select xx.* from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT
+            #{item.XH,jdbcType=VARCHAR},
+            #{item.AAZ400,jdbcType=VARCHAR},
+            #{item.SBUUID,jdbcType=VARCHAR},
+            #{item.AAC001,jdbcType=VARCHAR},
+            #{item.AAC002,jdbcType=VARCHAR},
+            #{item.AAC003,jdbcType=VARCHAR},
+            #{item.AAC004,jdbcType=VARCHAR},
+            #{item.AAC006,jdbcType=VARCHAR},--表示方式为YYYYMMDD
+            #{item.AAC147,jdbcType=VARCHAR},
+            #{item.AAC058,jdbcType=VARCHAR},
+            #{item.AAE036,jdbcType=VARCHAR},
+            #{item.AAA321,jdbcType=VARCHAR},
+            #{item.AAA322,jdbcType=VARCHAR},
+            #{item.AAE418,jdbcType=VARCHAR},
+            #{item.DATABH,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )xx
+    </insert>
+
+    <select id="findSWDJ102" resultType="com.tzsw.model.SWDJ102" parameterType="java.lang.String">
+        SELECT a.* FROM SWDJ102 a,PACKAGEHEAD b WHERE a.STATUS='0' and a.DATABH=b.SJBBH AND b.JGBS=#{JGBS}
+    </select>
+
+    <update id="updateSWDJ102" flushCache="true" parameterType="java.lang.String">
+        UPDATE SWDJ102 SET STATUS=#{status}
+    </update>
+
+    <delete id="deleteSWDJ102ByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM SWDJ102 WHERE DATABH=#{DATABH}
+    </delete>
+
+</mapper>

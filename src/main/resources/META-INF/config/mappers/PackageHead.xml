@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.PackageHeadDao">
+
+    <insert id="insertPackageHead" parameterType="java.util.List" flushCache="true">
+        INSERT INTO PACKAGEHEAD ( SJBBH, SJBLX, SFCF, DWDM, DWMC, JGBS, JLS, SCRQ )
+        VALUES
+        (
+        #{ SJBBH,jdbcType=VARCHAR },#{ SJBLX,jdbcType=VARCHAR },#{ SFCF,jdbcType=VARCHAR },#{ DWDM,jdbcType=VARCHAR },#{ DWMC,jdbcType=VARCHAR },#{ JGBS,jdbcType=VARCHAR },#{ JLS,jdbcType=VARCHAR },#{ SCRQ,jdbcType=VARCHAR })
+    </insert>
+
+    <select id="findPackage" resultType="com.tzsw.model.PackageHead">
+            SELECT * FROM PACKAGEHEAD  WHERE STATUS='0'
+    </select>
+
+    <update id="updatePackage" flushCache="true" parameterType="java.lang.String">
+        UPDATE PACKAGEHEAD SET STATUS=#{status}
+        <if test="DATABH!='' and DATABH!=null">
+            where SJBBH = #{DATABH}
+        </if>
+    </update>
+
+    <delete id="deletePackageHeadByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM PACKAGEHEAD WHERE SJBBH=#{DATABH}
+    </delete>
+</mapper>

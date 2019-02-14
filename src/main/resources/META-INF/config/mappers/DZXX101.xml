@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.DZXX101Dao">
+
+    <insert id="insertDZXX101" parameterType="java.util.List" flushCache="true">
+        INSERT INTO DZXX101 (
+        XH,
+        AAZ400,
+        AAA027,
+        SBUUID,
+        AAB034,
+        AAE311,
+        AAE140,
+        AAE310,
+        AAE080,
+        AAE082,
+        AAE056,
+        BAC121,
+        AAE239,
+        AIC152,
+        AAA321,
+        AAA322,
+        AAE418,
+        DATABH
+        )
+        select xx.* from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT
+            #{item.XH,jdbcType=VARCHAR},
+            #{item.AAZ400,jdbcType=VARCHAR},
+            #{item.AAA027,jdbcType=VARCHAR},
+            #{item.SBUUID,jdbcType=VARCHAR},
+            #{item.AAB034,jdbcType=VARCHAR},
+            #{item.AAE311,jdbcType=VARCHAR},
+            #{item.AAE140,jdbcType=VARCHAR},
+            #{item.AAE310,jdbcType=VARCHAR},
+            #{item.AAE080,jdbcType=VARCHAR},
+            #{item.AAE082,jdbcType=VARCHAR},
+            #{item.AAE056,jdbcType=VARCHAR},
+            #{item.BAC121,jdbcType=VARCHAR},
+            #{item.AAE239,jdbcType=VARCHAR},
+            #{item.AIC152,jdbcType=VARCHAR},
+            #{item.AAA321,jdbcType=VARCHAR},
+            #{item.AAA322,jdbcType=VARCHAR},
+            #{item.AAE418,jdbcType=VARCHAR},
+            #{item.DATABH,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )xx
+    </insert>
+
+    <select id="findDZXX101" resultType="com.tzsw.model.DZXX101" parameterType="java.lang.String">
+        SELECT a.* FROM DZXX101 a,PACKAGEHEAD b WHERE a.STATUS='0' and a.DATABH=b.SJBBH AND b.JGBS=#{JGBS}
+    </select>
+
+    <update id="updateDZXX101" flushCache="true" parameterType="java.lang.String">
+        UPDATE DZXX101 SET STATUS=#{status}
+    </update>
+
+    <delete id="deleteDZXX101ByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM DZXX101 WHERE DATABH=#{DATABH}
+    </delete>
+
+</mapper>

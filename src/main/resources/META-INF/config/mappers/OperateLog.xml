@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.OperateLogDao">
+
+    <insert id="insertOperateLog" parameterType="com.tzsw.model.OperateLog">
+        insert into OPERATE_LOG
+              ( OPERATE_ID, OPERATE_TYPE, SERVICECODE,BUSIPACKET, ERROR_MSG, CREATE_TIME )
+        VALUES
+        (#{operateID,jdbcType=VARCHAR},#{operateType,jdbcType=VARCHAR},#{serviceCode,jdbcType=VARCHAR},#{busipacket,jdbcType=CLOB},#{errormsg,jdbcType=CLOB},SYSDATE)
+
+    </insert>
+
+</mapper>

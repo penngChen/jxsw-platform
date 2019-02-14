@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.SequenceDao">
+
+    <select id="getFileSeq" resultType="java.lang.Integer">
+        SELECT file_seq.nextval FROM dual
+    </select>
+
+    <select id="getOperateSeq" resultType="java.lang.Integer">
+        SELECT operate_seq.nextval FROM dual
+    </select>
+
+    <select id="getTZXX101IdSeq" resultType="java.lang.Integer">
+        SELECT TZXX101Id_seq.nextval FROM dual
+    </select>
+</mapper>

@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tzsw.dao.JFXX101Dao">
+
+    <insert id="insertJFXX101" parameterType="java.util.List" flushCache="true">
+        INSERT INTO JFXX101(
+        XH,
+        AAZ400,
+        AAA027,
+        SBUUID,
+        AAB034,
+        AAZ288,
+        AAD009,
+        AAE140,
+        AAB001,
+        AAE003,
+        AAA115,
+        AAB119,
+        AAB084,
+        AAB121,
+        AAB120,
+        AAA042,
+        AAE080,
+        AAA041,
+        AAE082,
+        AAE056,
+        BAC121,
+        AAE239,
+        AAB165,
+        AAE530,
+        AAE531,
+        AAF020,
+        AAA321,
+        AAA322,
+        AAE418,
+        AAZ083,
+        DATABH
+        )
+        select xx.* from(
+        <foreach collection="list" item="item" index="index" separator="union all">
+            SELECT
+            #{item.XH,jdbcType=VARCHAR},
+            #{item.AAZ400,jdbcType=VARCHAR},
+            #{item.AAA027,jdbcType=VARCHAR},
+            #{item.SBUUID,jdbcType=VARCHAR},
+            #{item.AAB034,jdbcType=VARCHAR},
+            #{item.AAZ288,jdbcType=VARCHAR},
+            #{item.AAD009,jdbcType=VARCHAR},
+            #{item.AAE140,jdbcType=VARCHAR},
+            #{item.AAB001,jdbcType=VARCHAR},
+            #{item.AAE003,jdbcType=VARCHAR},
+            #{item.AAA115,jdbcType=VARCHAR},
+            #{item.AAB119,jdbcType=VARCHAR},
+            #{item.AAB084,jdbcType=VARCHAR},
+            #{item.AAB121,jdbcType=VARCHAR},
+            #{item.AAB120,jdbcType=VARCHAR},
+            #{item.AAA042,jdbcType=VARCHAR},
+            #{item.AAE080,jdbcType=VARCHAR},
+            #{item.AAA041,jdbcType=VARCHAR},
+            #{item.AAE082,jdbcType=VARCHAR},
+            #{item.AAE056,jdbcType=VARCHAR},
+            #{item.BAC121,jdbcType=VARCHAR},
+            #{item.AAE239,jdbcType=VARCHAR},
+            #{item.AAB165,jdbcType=VARCHAR},
+            #{item.AAE530,jdbcType=VARCHAR},
+            #{item.AAE531,jdbcType=VARCHAR},
+            #{item.AAF020,jdbcType=VARCHAR},
+            #{item.AAA321,jdbcType=VARCHAR},
+            #{item.AAA322,jdbcType=VARCHAR},
+            #{item.AAE418,jdbcType=VARCHAR},
+            #{item.AAZ083,jdbcType=VARCHAR},
+            #{item.DATABH,jdbcType=VARCHAR}
+            from dual
+        </foreach>
+        )xx
+    </insert>
+
+    <select id="findJFXX101" resultType="com.tzsw.model.JFXX101" parameterType="java.lang.String">
+        SELECT a.* FROM JFXX101 a,PACKAGEHEAD b WHERE a.STATUS='0' and a.DATABH=b.SJBBH AND b.JGBS=#{JGBS}
+    </select>
+
+    <update id="updateJFXX101" flushCache="true" parameterType="java.lang.String">
+        UPDATE JFXX101 SET STATUS=#{status}
+    </update>
+
+    <delete id="deleteJFXX101ByDATABH" parameterType="java.lang.String" flushCache="true">
+        DELETE  FROM JFXX101 WHERE DATABH=#{DATABH}
+    </delete>
+
+</mapper>
